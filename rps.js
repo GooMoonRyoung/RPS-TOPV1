@@ -1,27 +1,15 @@
+//selected HTML elements for later use
+const buttons = document.querySelectorAll('button');
+const container = document.querySelector('#container')
+const pScore = document.querySelector('#pScore')
+const cScore = document.querySelector('#cScore')
+
+//Randomly picks choice for the computer
 function getComputerChoice() {
     return Math.floor(Math.random() * 3 + 1)
 }
-/*
-function playRPS(playerSelection, computerSelection){
-    let playerChoice = selectionConverter(playerSelection.toUpperCase())
-    if ((playerChoice == 1)&&(computerSelection == 2)){
-        console.log('You Lose! Paper Beats Rock.')
-        return 0
-    } else if((playerChoice == 2) &&(computerSelection == 3)){
-        console.log('You Lose! Scissors Beats Paper.')
-        return 0
-    } else if((playerChoice == 3) &&(computerSelection == 1)){
-        console.log('You Lose! Rock Beats Scissors.')
-        return 0
-    } else if(playerChoice == computerSelection){
-        console.log(`It's a Draw! You both choose ${selectionConverter(playerChoice)}.`)
-        return 0.5
-    } else{
-        console.log(`You Won! ${selectionConverter(playerChoice)} beats ${selectionConverter(computerSelection)}.`)
-        return 1
-    }
-}
-*/
+
+//Converts a selection between backend logic a string for displaying
 function selectionConverter(selection){
     if (selection == "ROCK"){
         return 1
@@ -38,37 +26,14 @@ function selectionConverter(selection){
     }
 }
 
-function getPlayerChoice() {
-    choice = prompt('What would be your choice of Rock, Paper, or Scissor').toUpperCase();
-    return choice
-}
-
-function game(){
-    let score = 0
-    for (let i = 0; i < 5; i++){
-        score += playRPS(getPlayerChoice(), getComputerChoice())
-    }
-    if (score > 3){
-        console.log('you won the grudge match. Congratulations :)')
-    } else {
-        console.log('you lost the grudge match. Better luck next time :(')
-    }
-}
-
-
-
-// this is the start of the additional code added from the UI 
-const buttons = document.querySelectorAll('button');
-const container = document.querySelector('#container')
-const pScore = document.querySelector('#pScore')
-const cScore = document.querySelector('#cScore')
-
+// Adds eventlisteners on each of the buttons
 buttons.forEach((button) => {
     button.addEventListener('click', function(e){
         playRPS(this.id, getComputerChoice());
     })
 })
 
+// plays a round of RPS and checks if we are at the end of the game
 function playRPS(playerSelection, computerSelection){
     let playerChoice = selectionConverter(playerSelection.toUpperCase())
     if ((playerChoice == 1)&&(computerSelection == 2)){
@@ -100,13 +65,11 @@ function playRPS(playerSelection, computerSelection){
 
     //end game testing conditions
     if (Number(pScore.textContent) >= 5 || Number(cScore.textContent) >= 5){
-        buttons.forEach((button) => {
-            button.disabled = true;
-        })
         endGame(Number(pScore.textContent), Number(cScore.textContent));
     }
 }
 
+// Adds points depending on who won the round
 function addToScore(player){
     if (player === 1){
         pScore.textContent = (Number(pScore.textContent) + 1)
@@ -121,7 +84,11 @@ function addToScore(player){
     }
 }
 
+// Closes off the game and tells the User who won.
 function endGame(pScore, cScore){
+    buttons.forEach((button) => {
+        button.disabled = true;
+    })
     if (pScore > cScore){
         const div = document.createElement('div');
         div.textContent = `You are the Winner of this grudge match! See you next time.`
