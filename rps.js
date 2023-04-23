@@ -66,9 +66,6 @@ const cScore = document.querySelector('#cScore')
 buttons.forEach((button) => {
     button.addEventListener('click', function(e){
         playRPS(this.id, getComputerChoice());
-        const div = document.createElement('div');
-        div.textContent = ``
-        console.log(pScore.textContent)
     })
 })
 
@@ -100,6 +97,14 @@ function playRPS(playerSelection, computerSelection){
         container.appendChild(div)
         addToScore(1)
     }
+
+    //end game testing conditions
+    if (Number(pScore.textContent) >= 5 || Number(cScore.textContent) >= 5){
+        buttons.forEach((button) => {
+            button.disabled = true;
+        })
+        endGame(Number(pScore.textContent), Number(cScore.textContent));
+    }
 }
 
 function addToScore(player){
@@ -112,5 +117,24 @@ function addToScore(player){
     if (player === 0){
         pScore.textContent = (Number(pScore.textContent) + 0.5)
         cScore.textContent = (Number(cScore.textContent) + 0.5)
+        
+    }
+}
+
+function endGame(pScore, cScore){
+    if (pScore > cScore){
+        const div = document.createElement('div');
+        div.textContent = `You are the Winner of this grudge match! See you next time.`
+        container.appendChild(div)
+    }
+    if (pScore < cScore){
+        const div = document.createElement('div');
+        div.textContent = `You have lost this grudge match! See you next time.`
+        container.appendChild(div)
+    } 
+    if (pScore == cScore){
+        const div = document.createElement('div');
+        div.textContent = `This grudge match is a draw! See you next time.`
+        container.appendChild(div)
     }
 }
