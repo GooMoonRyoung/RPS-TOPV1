@@ -1,31 +1,28 @@
 function getComputerChoice() {
     return Math.floor(Math.random() * 3 + 1)
 }
-
-function playRPS(playerSelection, computerselection){
-    let playerChoice = selectionConverter(playerSelection)
-    if ((playerChoice == 1)&&(computerselection == 2)){
+/*
+function playRPS(playerSelection, computerSelection){
+    let playerChoice = selectionConverter(playerSelection.toUpperCase())
+    if ((playerChoice == 1)&&(computerSelection == 2)){
         console.log('You Lose! Paper Beats Rock.')
         return 0
-    } else if((playerChoice == 2) &&(computerselection == 3)){
+    } else if((playerChoice == 2) &&(computerSelection == 3)){
         console.log('You Lose! Scissors Beats Paper.')
         return 0
-    } else if((playerChoice == 3) &&(computerselection == 1)){
+    } else if((playerChoice == 3) &&(computerSelection == 1)){
         console.log('You Lose! Rock Beats Scissors.')
         return 0
-    } else if(playerChoice == computerselection){
+    } else if(playerChoice == computerSelection){
         console.log(`It's a Draw! You both choose ${selectionConverter(playerChoice)}.`)
         return 0.5
     } else{
-        console.log(`You Won! ${selectionConverter(playerChoice)} beats ${selectionConverter(computerselection)}.`)
+        console.log(`You Won! ${selectionConverter(playerChoice)} beats ${selectionConverter(computerSelection)}.`)
         return 1
     }
 }
-
+*/
 function selectionConverter(selection){
-    if (typeof selection === 'string'){
-        selection = selection.toUpperCase()
-    }    
     if (selection == "ROCK"){
         return 1
     } else if(selection == "PAPER"){
@@ -62,9 +59,41 @@ function game(){
 
 // this is the start of the additional code added from the UI 
 const buttons = document.querySelectorAll('button');
+const container = document.querySelector('#container')
+
 buttons.forEach((button) => {
     button.addEventListener('click', function(e){
-        console.log(this.id)
-        playRPS(this.id, getComputerChoice())
+        playRPS(this.id, getComputerChoice());
+        const div = document.createElement('div');
+        div.textContent = ``
     })
 })
+
+function playRPS(playerSelection, computerSelection){
+    let playerChoice = selectionConverter(playerSelection.toUpperCase())
+    if ((playerChoice == 1)&&(computerSelection == 2)){
+        console.log('You Lose! Paper Beats Rock.')
+        const div = document.createElement('div');
+        div.textContent = `You Lose! Paper Beats Rock.`
+        container.appendChild(div)
+        return 0
+    } else if((playerChoice == 2) &&(computerSelection == 3)){
+        console.log('You Lose! Scissors Beats Paper.')
+        const div = document.createElement('div');
+        div.textContent = `You Lose! Paper Beats Rock.`
+        container.appendChild(div)
+        return 0
+    } else if((playerChoice == 3) &&(computerSelection == 1)){
+        console.log('You Lose! Rock Beats Scissors.')
+        const div = document.createElement('div');
+        div.textContent = `You Lose! Paper Beats Rock.`
+        container.appendChild(div)
+        return 0
+    } else if(playerChoice == computerSelection){
+        console.log(`It's a Draw! You both choose ${selectionConverter(playerChoice)}.`)
+        return 0.5
+    } else{
+        console.log(`You Won! ${selectionConverter(playerChoice)} beats ${selectionConverter(computerSelection)}.`)
+        return 1
+    }
+}
