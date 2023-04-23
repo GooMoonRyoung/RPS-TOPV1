@@ -60,12 +60,15 @@ function game(){
 // this is the start of the additional code added from the UI 
 const buttons = document.querySelectorAll('button');
 const container = document.querySelector('#container')
+const pScore = document.querySelector('#pScore')
+const cScore = document.querySelector('#cScore')
 
 buttons.forEach((button) => {
     button.addEventListener('click', function(e){
         playRPS(this.id, getComputerChoice());
         const div = document.createElement('div');
         div.textContent = ``
+        console.log(pScore.textContent)
     })
 })
 
@@ -75,26 +78,39 @@ function playRPS(playerSelection, computerSelection){
         const div = document.createElement('div');
         div.textContent = `You Lose! Paper Beats Rock.`
         container.appendChild(div)
-        return 0
+        addToScore(2)
     } else if((playerChoice == 2) &&(computerSelection == 3)){
         const div = document.createElement('div');
         div.textContent = `You Lose! Paper Beats Rock.`
         container.appendChild(div)
-        return 0
+        addToScore(2)
     } else if((playerChoice == 3) &&(computerSelection == 1)){
         const div = document.createElement('div');
         div.textContent = `You Lose! Paper Beats Rock.`
         container.appendChild(div)
-        return 0
+        addToScore(2)
     } else if(playerChoice == computerSelection){
         const div = document.createElement('div');
         div.textContent = `It's a Draw! You both choose ${selectionConverter(playerChoice)}.`
         container.appendChild(div)
-        return 0.5
+        addToScore(0)
     } else{
         const div = document.createElement('div');
         div.textContent = `You Won! ${selectionConverter(playerChoice)} beats ${selectionConverter(computerSelection)}.`
         container.appendChild(div)
-        return 1
+        addToScore(1)
+    }
+}
+
+function addToScore(player){
+    if (player === 1){
+        pScore.textContent = (Number(pScore.textContent) + 1)
+    }
+    if (player === 2){
+        cScore.textContent = (Number(cScore.textContent) + 1)
+    }
+    if (player === 0){
+        pScore.textContent = (Number(pScore.textContent) + 0.5)
+        cScore.textContent = (Number(cScore.textContent) + 0.5)
     }
 }
