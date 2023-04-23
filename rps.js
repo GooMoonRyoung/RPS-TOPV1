@@ -72,28 +72,29 @@ buttons.forEach((button) => {
 function playRPS(playerSelection, computerSelection){
     let playerChoice = selectionConverter(playerSelection.toUpperCase())
     if ((playerChoice == 1)&&(computerSelection == 2)){
-        console.log('You Lose! Paper Beats Rock.')
         const div = document.createElement('div');
         div.textContent = `You Lose! Paper Beats Rock.`
         container.appendChild(div)
         return 0
     } else if((playerChoice == 2) &&(computerSelection == 3)){
-        console.log('You Lose! Scissors Beats Paper.')
         const div = document.createElement('div');
         div.textContent = `You Lose! Paper Beats Rock.`
         container.appendChild(div)
         return 0
     } else if((playerChoice == 3) &&(computerSelection == 1)){
-        console.log('You Lose! Rock Beats Scissors.')
         const div = document.createElement('div');
         div.textContent = `You Lose! Paper Beats Rock.`
         container.appendChild(div)
         return 0
     } else if(playerChoice == computerSelection){
-        console.log(`It's a Draw! You both choose ${selectionConverter(playerChoice)}.`)
+        const div = document.createElement('div');
+        div.textContent = `It's a Draw! You both choose ${selectionConverter(playerChoice)}.`
+        container.appendChild(div)
         return 0.5
     } else{
-        console.log(`You Won! ${selectionConverter(playerChoice)} beats ${selectionConverter(computerSelection)}.`)
+        const div = document.createElement('div');
+        div.textContent = `You Won! ${selectionConverter(playerChoice)} beats ${selectionConverter(computerSelection)}.`
+        container.appendChild(div)
         return 1
     }
 }
