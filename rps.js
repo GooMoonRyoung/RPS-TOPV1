@@ -23,6 +23,9 @@ function playRPS(playerSelection, computerselection){
 }
 
 function selectionConverter(selection){
+    if (typeof selection === 'string'){
+        selection = selection.toUpperCase()
+    }    
     if (selection == "ROCK"){
         return 1
     } else if(selection == "PAPER"){
@@ -54,3 +57,14 @@ function game(){
         console.log('you lost the grudge match. Better luck next time :(')
     }
 }
+
+
+
+// this is the start of the additional code added from the UI 
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', function(e){
+        console.log(this.id)
+        playRPS(this.id, getComputerChoice())
+    })
+})
